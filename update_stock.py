@@ -47,12 +47,21 @@ def fetch_stock_data(symbol, start_date):
 def insert_stock_data(symbol, data):
     for idx, row in data.iterrows():
         date = idx.date()
+        # 중복 여부 확인 쿼리
         cursor.execute('''
-        INSERT INTO stocks (symbol, date, open, high, low, close, volume, dividends, stock_splits)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-        ''', (symbol, date, row['Open'], row['High'], row['Low'], row['Close'], row['Volume'], row['Dividends'], row['Stock Splits']))
-        print(f"{date} 데이터가 업데이트 되었습니다.")
-        
+        SELECT COUNT(*) FROM stocks WHERE symbol = ? AND date = ?
+        ''', (symbol, date))
+        count = cursor.fetchone()[0]
+
+        if count == 0:
+            # 중복이 없을 때만 INSERT
+            cursor.execute('''
+            INSERT INTO stocks (symbol, date, open, high, low, close, volume, dividends, stock_splits)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ''', (symbol, date, row['Open'], row['High'], row['Low'], row['Close'], row['Volume'], row['Dividends'], row['Stock Splits']))
+            print(f"{symbol} {date} 데이터가 업데이트 되었습니다.")
+        else:
+            print(f"{symbol} {date} 데이터가 이미 존재합니다. 업데이트되지 않았습니다.")        
 
 # 업데이트 함수
 def update_stock_data(symbol):
