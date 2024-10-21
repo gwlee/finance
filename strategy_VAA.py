@@ -29,6 +29,12 @@ def load_monthly_data(symbols):
     # 월말 종가 추출 (이전에는 'M'을 사용했으나, 'ME'(Month-End)를 사용)
     df = df.resample('ME').last()
     
+    # 현재 날짜 확인
+    current_date = pd.Timestamp.today()
+    last_valid_date = current_date - pd.DateOffset(months=1)
+    last_valid_date = last_valid_date.replace(day=1) + pd.DateOffset(months=1) - pd.DateOffset(days=1)
+    df = df[df.index <= last_valid_date]
+    
     return df
 
 # 가장 오래된 12개월 모멘텀을 계산할 수 있는 날짜 탐색
