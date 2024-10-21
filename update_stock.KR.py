@@ -47,6 +47,18 @@ def fetch_stock_data(symbol, start_date):
 def insert_stock_data(symbol, data):
     for idx, row in data.iterrows():
         date = idx.date()
+
+        cursor.execute('''
+        INSERT INTO stocks (symbol, date, open, high, low, close, volume, dividends, stock_splits)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ''', (symbol, date, row['Open'], row['High'], row['Low'], row['Close'], row['Volume'], row['Dividends'], row['Stock Splits']))
+        #print(f"{symbol} {date} 데이터가 업데이트 되었습니다.")
+        
+
+# 주식 데이터를 테이블에 삽입하는 함수
+def insert_stock_data1(symbol, data):
+    for idx, row in data.iterrows():
+        date = idx.date()
         # 중복 여부 확인 쿼리
         cursor.execute('''
         SELECT COUNT(*) FROM stocks WHERE symbol = ? AND date = ?
@@ -59,10 +71,10 @@ def insert_stock_data(symbol, data):
             INSERT INTO stocks (symbol, date, open, high, low, close, volume, dividends, stock_splits)
             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
             ''', (symbol, date, row['Open'], row['High'], row['Low'], row['Close'], row['Volume'], row['Dividends'], row['Stock Splits']))
-            print(f"{symbol} {date} 데이터가 업데이트 되었습니다.")
+            #print(f"{symbol} {date} 데이터가 업데이트 되었습니다.")
         else:
-            print(f"{symbol} {date} 데이터가 이미 존재합니다. 업데이트되지 않았습니다.")        
-
+            print(f"{symbol} {date} 데이터가 이미 존재합니다. 업데이트되지 않았습니다.")
+            
 # 업데이트 함수
 def update_stock_data(symbol):
     # DB에 기록된 가장 최근 날짜 확인
@@ -70,25 +82,32 @@ def update_stock_data(symbol):
     
     if latest_date is None:
         # 데이터가 없으면 처음부터 데이터를 가져옴
-        print("DB에 저장된 데이터가 없습니다. 전체 데이터를 가져옵니다.")
+        print(f"DB에 저장된 {symbol} 데이터가 없습니다. 전체 데이터를 가져옵니다.")
         try:
             stock_data = fetch_stock_data('{}.KS'.format(symbol), "1900-01-01")
         except:
             stock_data = fetch_stock_data('{}.KQ'.format(symbol), "1900-01-01")
+
+        # 데이터를 DB에 삽입
+        insert_stock_data(symbol, stock_data)
+
+            
     elif latest_date < yesterday:
         # 가장 최근 날짜 이후로 데이터가 있으면 그 이후부터 데이터를 가져옴
-        print(f"{latest_date} 이후로 데이터를 업데이트합니다.")
+        print(f"{latest_date} 이후로 {symbol} 데이터를 업데이트합니다.")
         start_date = latest_date + timedelta(days=1)
         try:
             stock_data = fetch_stock_data('{}.KS'.format(symbol), start_date)
         except:
             stock_data = fetch_stock_data('{}.KQ'.format(symbol), start_date)
+
+        # 데이터를 DB에 삽입
+        insert_stock_data1(symbol, stock_data)
+
+    
     else:
         print("DB가 이미 최신 상태입니다.")
         return
-
-    # 데이터를 DB에 삽입
-    insert_stock_data(symbol, stock_data)
 
 
 
