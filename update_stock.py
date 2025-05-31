@@ -3,6 +3,11 @@ import sqlite3
 import yfinance as yf
 from datetime import datetime, timedelta
 import time
+from curl_cffi import requests
+
+# 세션 생성 및 User-Agent 설정
+headers = {'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36'}
+session = requests.Session(impersonate="chrome", headers=headers, verify=False)
 
 # SQLite 데이터베이스 연결
 conn = sqlite3.connect('stocks.db')
@@ -38,7 +43,7 @@ def get_latest_date(symbol):
 
 # 주식 데이터를 가져오는 함수
 def fetch_stock_data(symbol, start_date):
-    stock = yf.Ticker(symbol)
+    stock = yf.Ticker(symbol, session=session)
     # 주식 데이터를 start_date부터 어제까지 불러옴
     hist = stock.history(start=start_date, end=today)
     return hist
