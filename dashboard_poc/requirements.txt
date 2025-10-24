@@ -1,0 +1,4 @@
+Flask==2.3.2
+pandas==2.0.3
+plotly==5.16.1
+sqlite3  # 표준 라이브러리
