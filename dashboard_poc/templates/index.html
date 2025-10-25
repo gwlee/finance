@@ -12,13 +12,29 @@
 
         <div class="controls">
             <label>기간 시작: <input type="date" id="start-date"></label>
-            <label>기간 종료: <input type="date" id="end-date"></label><br>
+            <label>기간 종료: <input type="date" id="end-date"></label><br><br>
 
-            <label>심볼 및 DB 선택 (콤마구분)</label><br>
-            <input type="text" id="symbols" placeholder="예: USD/KRW,005930.KS">
-            <input type="text" id="dbkeys"  placeholder="예: currency,stock_kr"><br>
-
-            <button id="btn-compare">비교 보기</button>
+            <div class="select-add-group">
+                <select id="db-type-select">
+                    <option value="" disabled selected>항목 유형 선택</option>
+                    <option value="currency">환율 (KRW 등)</option>
+                    <option value="index">지수</option>
+                    <option value="stock_kr">한국 주식 (KRW)</option>
+                    <option value="stock_us">미국 주식 (USD)</option>
+                </select>
+                <select id="symbol-select" disabled>
+                    <option value="" disabled selected>심볼 선택</option>
+                </select>
+                <button id="btn-add-item">+</button>
+            </div>
+            
+            <div id="compare-list-container">
+                <label>선택된 비교 항목:</label>
+                <ul id="compare-list">
+                    </ul>
+            </div>
+            
+            <button id="btn-compare">차트 보기 (비교)</button>
         </div>
 
         <div id="chart" class="chart"></div>

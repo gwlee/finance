@@ -15,3 +15,55 @@ body {
 .chart {
     height: 600px;
 }
+
+/* 추가된 스타일 */
+.select-add-group {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    align-items: center;
+}
+
+#btn-add-item {
+    padding: 5px 10px;
+    font-weight: bold;
+}
+
+#compare-list-container {
+    margin-bottom: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+}
+
+#compare-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+#compare-list li {
+    background-color: #e0f7fa;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+}
+
+.delete-item-btn {
+    background: #ff5252;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    margin-left: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 1px 6px;
+    line-height: 1;
+}
+
+.delete-item-btn:hover {
+    background: #d32f2f;
+}
