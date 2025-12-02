@@ -1,0 +1,242 @@
+{
+  "collections": {
+    "finance_db.currencies": {
+      "ns": "finance_db.currencies",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "close",
+          "date",
+          "dividends",
+          "high",
+          "low",
+          "open",
+          "stock_splits",
+          "symbol",
+          "volume"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "close": {
+            "bsonType": "double"
+          },
+          "date": {
+            "bsonType": "date"
+          },
+          "dividends": {
+            "bsonType": "double"
+          },
+          "high": {
+            "bsonType": "double"
+          },
+          "low": {
+            "bsonType": "double"
+          },
+          "open": {
+            "bsonType": "double"
+          },
+          "stock_splits": {
+            "bsonType": "double"
+          },
+          "symbol": {
+            "bsonType": "string"
+          },
+          "volume": {
+            "bsonType": "int"
+          }
+        }
+      }
+    },
+    "finance_db.indices": {
+      "ns": "finance_db.indices",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "close",
+          "date",
+          "dividends",
+          "high",
+          "low",
+          "open",
+          "stock_splits",
+          "symbol",
+          "volume"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "close": {
+            "bsonType": "double"
+          },
+          "date": {
+            "bsonType": "date"
+          },
+          "dividends": {
+            "bsonType": "double"
+          },
+          "high": {
+            "bsonType": "double"
+          },
+          "low": {
+            "bsonType": "double"
+          },
+          "open": {
+            "bsonType": "double"
+          },
+          "stock_splits": {
+            "bsonType": "double"
+          },
+          "symbol": {
+            "bsonType": "string"
+          },
+          "volume": {
+            "bsonType": [
+              "int",
+              "long"
+            ]
+          }
+        }
+      }
+    },
+    "finance_db.korean_stocks": {
+      "ns": "finance_db.korean_stocks",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "close",
+          "date",
+          "dividends",
+          "high",
+          "low",
+          "open",
+          "stock_splits",
+          "symbol",
+          "volume"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "close": {
+            "bsonType": "double"
+          },
+          "date": {
+            "bsonType": "date"
+          },
+          "dividends": {
+            "bsonType": "double"
+          },
+          "high": {
+            "bsonType": "double"
+          },
+          "low": {
+            "bsonType": "double"
+          },
+          "open": {
+            "bsonType": "double"
+          },
+          "stock_splits": {
+            "bsonType": "double"
+          },
+          "symbol": {
+            "bsonType": "string"
+          },
+          "volume": {
+            "bsonType": "int"
+          }
+        }
+      }
+    },
+    "finance_db.ticker_metadata": {
+      "ns": "finance_db.ticker_metadata",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "is_active",
+          "market_type",
+          "name",
+          "ticker",
+          "updated_at"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "is_active": {
+            "bsonType": "bool"
+          },
+          "market_type": {
+            "bsonType": "string"
+          },
+          "name": {
+            "bsonType": "string"
+          },
+          "ticker": {
+            "bsonType": "string"
+          },
+          "updated_at": {
+            "bsonType": "date"
+          }
+        }
+      }
+    },
+    "finance_db.us_stocks": {
+      "ns": "finance_db.us_stocks",
+      "jsonSchema": {
+        "bsonType": "object",
+        "required": [
+          "_id",
+          "close",
+          "date",
+          "dividends",
+          "high",
+          "low",
+          "open",
+          "stock_splits",
+          "symbol",
+          "volume"
+        ],
+        "properties": {
+          "_id": {
+            "bsonType": "objectId"
+          },
+          "close": {
+            "bsonType": "double"
+          },
+          "date": {
+            "bsonType": "date"
+          },
+          "dividends": {
+            "bsonType": "double"
+          },
+          "high": {
+            "bsonType": "double"
+          },
+          "low": {
+            "bsonType": "double"
+          },
+          "open": {
+            "bsonType": "double"
+          },
+          "stock_splits": {
+            "bsonType": "double"
+          },
+          "symbol": {
+            "bsonType": "string"
+          },
+          "volume": {
+            "bsonType": "int"
+          }
+        }
+      }
+    }
+  },
+  "relationships": []
+}
