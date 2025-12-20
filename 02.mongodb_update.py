@@ -634,7 +634,7 @@ TICKER_LISTS = {
 'ZBH',
 'ZTS',
     ],
-    "korean_stocks": format_korean_tickers([
+    "korean_stocks":[
         "000020",
 "000040",
 "000050",
@@ -4730,8 +4730,8 @@ TICKER_LISTS = {
 "950190",
 "950200",
 "950210",
-"950220"
-    ]),
+"950220",
+    ],
 }
 
 # =========================================================
@@ -4875,9 +4875,33 @@ def run_parallel_update():
             print(f"\n🚀 {collection_name} 업데이트 시작 ({len(symbols)}개 티커)")
 
             latest_dates = get_latest_dates_from_mongo(db, collection_name, symbols)
+            # 한국 주식인 경우 KS / KQ 두 후보를 모두 제출
+            if type_name == "korean_stocks":
+                for symbol in symbols:
+                    for suffix in (".KS", ".KQ"):
+                        future = executor.submit(
+                            fetch_and_insert_ticker,
+                            f"{symbol}{suffix}",
+                            collection,
+                            latest_dates
+                        )
+                        all_futures.append(future)
+            else:
+                # 나머지(미국주식·지수·환율)는 기존 심볼 그대로 1회 실행
+                for symbol in symbols:
+                    future = executor.submit(
+                        fetch_and_insert_ticker,
+                        symbol,
+                        collection,
+                        latest_dates
+                    )
+                    all_futures.append(future)
+
+            '''
             for symbol in symbols:
                 future = executor.submit(fetch_and_insert_ticker, symbol, collection, latest_dates)
                 all_futures.append(future)
+            '''
 
         for future in as_completed(all_futures):
             try:
